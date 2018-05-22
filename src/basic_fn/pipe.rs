@@ -6,7 +6,7 @@
 // except according to those terms.
 
 /// This macro is used to provide shortcut of function composition.
-/// The order is last-in-first-invoke.
+/// The order is last-in-last-invoke.
 /// 
 /// # Arguments
 /// 
