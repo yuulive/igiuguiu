@@ -1,6 +1,24 @@
 [package]
 name = "kaguya_rs"
+description = "Functional Programming tools and ADTs"
 version = "0.1.0"
-authors = ["fgo"]
+authors = ["FGO <fgoinai@gmail.com>"]
+
+homepage = "https://github.com/fgoinai/KaguyaRs"
+repository = "https://github.com/fgoinai/KaguyaRs"
+documentation = "https://docs.rs/kaguya_rs"
+readme = "README.md"
+
+keyword = [
+    "functional-programming",
+    "functions",
+    "ADT",
+    "Kaguya"
+]
+
+license = "Apache-2.0"
+
+[badges]
+travis-ci = { repository = "fgoinai/KaguyaRs", branch = "master" }
 
 [dependencies]

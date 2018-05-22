@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/fgoinai/KaguyaRs.svg?branch=master)](https://travis-ci.org/fgoinai/KaguyaRs)
+[![docs](https://docs.rs/kaguya_rs/badge.svg)](https://docs.rs/kaguya_rs)
 
 # Category
 1. Introduction
