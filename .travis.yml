@@ -1,0 +1,15 @@
+language: rust
+
+rust:
+  - stable
+  - nightly
+
+notifications:
+  email:
+    recipients:
+      - fgo.inai@gmail.com
+
+branches:
+  only:
+    - master
+    - release
