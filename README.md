@@ -1,3 +1,4 @@
+[![crates.io](https://img.shields.io/crates/v/kaguya_rs.svg)](https://crates.io/crates/kaguya_rs)
 [![Build Status](https://travis-ci.org/fgoinai/KaguyaRs.svg?branch=master)](https://travis-ci.org/fgoinai/KaguyaRs)
 [![docs](https://docs.rs/kaguya_rs/badge.svg)](https://docs.rs/kaguya_rs)
 
