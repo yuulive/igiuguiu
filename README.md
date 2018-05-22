@@ -3,14 +3,15 @@
 
 # Category
 1. Introduction
-2. Usage
-3. Requirement
-4. Basic function
-5. Typeclass in rust as trait
-6. Typeclass impl for std struct and enum of Rust
-7. Contribution and developing
-8. Thanks List
-9. LICENSE
+2. Install
+3. Usage
+4. Requirement
+5. Basic function
+6. Typeclass in rust as trait
+7. Typeclass impl for std struct and enum of Rust
+8. Contribution and developing
+9. Thanks List
+10. LICENSE
 
 ### Introduction
 KaguyaRs is a **TOY** functional library of Rust.
@@ -30,9 +31,18 @@ Key concerns of this library:
 4. Performance. If not necessary `trait object` will be avoided.
 5. Implementation may be ugly and buggy, just feel free to issue it for any ideas.
 
+### Install
+Add dependency to your Cargo.toml
+```toml
+[dependencies]
+kaguya_rs = "*"
+```
+
 ### Usage
+Please refer tests and [Docs](https://docs.rs/kaguya_rs)
 
 ### Requirement
+rustc version >= 1.26
 
 ### Basic function
 Basic function and its signature provided is listed below, function based on map will be applied later
