@@ -10,7 +10,7 @@ documentation = "https://docs.rs/kaguya_rs"
 readme = "README.md"
 
 keywords = [
-    "functional-programming",
+    "functional",
     "functions",
     "ADT",
     "Kaguya"
