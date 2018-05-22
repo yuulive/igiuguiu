@@ -11,7 +11,6 @@
 /// # Arguments
 /// 
 /// * `args` - function or closure separated by comma(,)
-
 #[macro_export]
 macro_rules! pipe  {
     ($($f:expr),*) => {

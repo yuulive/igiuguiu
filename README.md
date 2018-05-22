@@ -47,19 +47,17 @@ rustc version >= 1.26
 ### Basic function
 Basic function and its signature provided is listed below, function based on map will be applied later
 
-There are three versions: curry or not, macro
+There are two versions: function and macro
 
-For curry version, each param will form a new closure, for example
+For curry version, it act as a macro. The macro will form a new closure, for example
 ```rust
 let f = map(|x| x+1, [1,2,3,4,5]);
 assert_eq!(f, [2,3,4,5,6]);
 
-let f2 = c_map(|x| x+1)([1,2,3,4,5]); // (Number -> Number) -> [Number] -> [Number]
+let f2 = map!(|x| x+1)([1,2,3,4,5]); // (Number -> Number) -> [Number] -> [Number]
 assert_eq!(f2, [2,3,4,5,6])
 ```
 For macro version, please refer test for further details as macro can curry automatically depends on the way to invoke macro.
-
-All function with more than one param will have a curry version start with "c_", like c_map
 
 For details, please refer TODO.md.
 

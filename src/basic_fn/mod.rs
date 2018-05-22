@@ -12,3 +12,9 @@
 pub mod pipe;
 #[macro_use]
 pub mod compose;
+#[macro_use]
+pub mod map;
+#[macro_use]
+pub mod filter;
+#[macro_use]
+pub mod fold;

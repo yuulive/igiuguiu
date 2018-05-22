@@ -12,4 +12,7 @@
 pub mod basic_fn {
     pub mod pipe;
     pub mod compose;
+    pub mod map;
+    pub mod filter;
+    pub mod fold;
 }

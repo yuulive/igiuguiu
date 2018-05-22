@@ -7,10 +7,9 @@
 6. refactor whole lib by embedding persistence data structure to improve performance
 
 ### functions
-#### Non curry version
-- [ ] `map`
-- [ ] `foldl`
-- [ ] `foldr`
+- [x] `map` - 0.1.1, with curry
+- [x] `foldl` - 0.1.1, with curry
+- [x] `foldr` - 0.1.1, with curry
 - [ ] `trim`
 - [ ] `all`
 - [ ] `all_pass`
@@ -37,7 +36,7 @@
 - [ ] `either`
 - [ ] `ends_with`
 - [ ] `equals`
-- [ ] `filter`
+- [x] `filter` - 0.1.1, with curry
 - [ ] `find<T>`
 - [ ] `find_index`
 - [ ] `find_last`
@@ -90,7 +89,7 @@
 - [ ] `foldl_by`
 - [ ] `foldr_by`
 - [ ] `fold_while`
-- [ ] `filter_not`
+- [x] `filter_not` - 0.1.1, with curry
 - [ ] `remove`
 - [ ] `repeat`
 - [ ] `replace`
