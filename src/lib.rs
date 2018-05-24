@@ -15,4 +15,6 @@ pub mod basic_fn {
     pub mod map;
     pub mod filter;
     pub mod fold;
+    pub mod sum;
+    pub mod list;
 }

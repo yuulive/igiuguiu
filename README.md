@@ -1,3 +1,4 @@
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![crates.io](https://img.shields.io/crates/v/kaguya_rs.svg)](https://crates.io/crates/kaguya_rs)
 [![Build Status](https://travis-ci.org/fgoinai/KaguyaRs.svg?branch=master)](https://travis-ci.org/fgoinai/KaguyaRs)
 [![docs](https://docs.rs/kaguya_rs/badge.svg)](https://docs.rs/kaguya_rs)
@@ -77,7 +78,7 @@ For PR and any other questions, please create a new issue for following.
 
 ### Thanks List
 - [RamdaJS](https://ramdajs.com/) - inspiration of most functions
-- [fluxxu@zhihu](https://www.zhihu.com/people/fluxxu/activities) - pipe macro
+- [fluxxu](https://github.com/fluxxu) - pipe macro
 
 ### LICENSE
 Apache License v2.

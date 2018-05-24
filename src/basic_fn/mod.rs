@@ -18,3 +18,7 @@ pub mod map;
 pub mod filter;
 #[macro_use]
 pub mod fold;
+#[macro_use]
+pub mod sum;
+#[macro_use]
+pub mod list;

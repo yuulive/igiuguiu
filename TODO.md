@@ -106,7 +106,7 @@
 - [ ] `split_every`
 - [ ] `split_when`
 - [ ] `starts_with`
-- [ ] `sum`
+- [x] `sum` - 0.1.2, with shorthand macro
 - [ ] `diff`
 - [ ] `take`
 - [ ] `take_last`
@@ -151,3 +151,5 @@
 - [ ] `partial`
 #### Maybe it is not necessary in Rust
 - [ ] `to_string`
+#### Other
+- [x] `ls!` - 0.1.2: list comprehension

@@ -143,3 +143,26 @@ fn foldr() {
     let c_result2 = curry2(v.iter());
     assert_eq!(c_result2, "すごい！ Kaguya Houraisan");
 }
+
+#[test]
+// fn sum and macro sum
+fn sum() {
+    use kaguya_rs::basic_fn::sum::sum;
+    let result = 10;
+    assert_eq!(sum(1..=4), result);
+    assert_eq!(sum!(1;4), result);
+    assert_eq!(sum!(1,2,3,4), result);
+}
+
+#[test]
+// macro ls: list comprehension
+fn ls() {
+    // 1. function on item;iter=>function to check condition
+    assert_eq!(ls![|x| x+1; 1..=5 => |x| x&1==0], vec![3,5]);
+    // 2. iter=>function to check condition
+    assert_eq!(ls![0..=4 => |x| x&1==0], vec![0,2,4]);
+    // 3. function on item;iter
+    assert_eq!(ls![|x| x*x; 0..=4], vec![0,1,4,9,16]);
+    // 4. iter
+    assert_eq!(ls![0..=4], vec![0,1,2,3,4]);
+}
