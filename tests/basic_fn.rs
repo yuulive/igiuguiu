@@ -74,7 +74,7 @@ fn pipe_type_projection() {
 #[test]
 // fn map and curry map
 fn map() {
-    use kaguya_rs::basic_fn::map::map;
+    use kaguya_rs::basic_fn::fun::map;
     let v = vec![1,2,3];
     let result: Vec<i32> = map(|x| x+1, v.iter()).collect();
     assert_eq!(result, vec![2,3,4]);
@@ -87,7 +87,7 @@ fn map() {
 #[test]
 // fn filter and curry filter
 fn filter() {
-    use kaguya_rs::basic_fn::filter::filter;
+    use kaguya_rs::basic_fn::fun::filter;
     let v = vec![1,2,3];
     let odd = filter(|&x| x & 1 == 1, v.iter()).map(|&x| x).collect::<Vec<i32>>();
     assert_eq!(odd, vec![1,3]);
@@ -100,7 +100,7 @@ fn filter() {
 #[test]
 // fn filter_not and curry filter_not
 fn filter_not() {
-    use kaguya_rs::basic_fn::filter::filter_not;
+    use kaguya_rs::basic_fn::fun::filter_not;
     let v = vec![1,2,3];
     let even = filter_not(|&x| x & 1 == 1, v.iter()).map(|&x| x).collect::<Vec<i32>>();
     assert_eq!(even, vec![2]);
@@ -113,7 +113,7 @@ fn filter_not() {
 #[test]
 // fn foldl and curry foldl
 fn foldl() {
-    use kaguya_rs::basic_fn::fold::foldl;
+    use kaguya_rs::basic_fn::fun::foldl;
     let v = vec![1,2,3];
     let result = foldl(4, |x,y| x*y, v.iter());
     assert_eq!(result, 24);
@@ -125,12 +125,16 @@ fn foldl() {
     let curry2 = foldl!(6, |x,y| x-y);
     let c_result2 = curry2(v.iter());
     assert_eq!(c_result2, 0);
+
+    let step_curry = foldl!(0=>);
+    let step_curry_2 = step_curry(|x,y| x+y);
+    assert_eq!(step_curry_2(v.iter()), 6);
 }
 
 #[test]
 // fn foldr and curry foldr
 fn foldr() {
-    use kaguya_rs::basic_fn::fold::foldr;
+    use kaguya_rs::basic_fn::fun::foldr;
     let v = vec!["Houraisan","Kaguya"];
     let result = foldr("".to_string(), |x,y| x + "<|>" + y, v.iter());
     assert_eq!(result, "<|>Kaguya<|>Houraisan");
@@ -142,12 +146,16 @@ fn foldr() {
     let curry2 = foldr!("すごい！".to_string(), |x,&y| x+" "+y);
     let c_result2 = curry2(v.iter());
     assert_eq!(c_result2, "すごい！ Kaguya Houraisan");
+
+    let step_curry = foldr!("楽しい〜".to_string()=>);
+    let step_curry_2 = step_curry(|x,&y| x+" "+y);
+    assert_eq!(step_curry_2(v.iter()), "楽しい〜 Kaguya Houraisan");
 }
 
 #[test]
 // fn sum and macro sum
 fn sum() {
-    use kaguya_rs::basic_fn::sum::sum;
+    use kaguya_rs::basic_fn::fun::sum;
     let result = 10;
     assert_eq!(sum(1..=4), result);
     assert_eq!(sum!(1;4), result);

@@ -9,16 +9,6 @@
 //! This include function and macros. For details please refer [Rust Docs](https://docs.rs/)
 
 #[macro_use]
-pub mod pipe;
+pub mod fun;
 #[macro_use]
-pub mod compose;
-#[macro_use]
-pub mod map;
-#[macro_use]
-pub mod filter;
-#[macro_use]
-pub mod fold;
-#[macro_use]
-pub mod sum;
-#[macro_use]
-pub mod list;
+pub mod mac;

@@ -5,6 +5,27 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
+use std::iter::Sum;
+
+/// Used for data projection via mapping function.
+/// 
+/// # Arguments
+/// 
+/// * `f`: f :: T -> U
+/// * `it`: Iterator<T>
+pub fn map<T,U>(f: impl Fn(T) -> U, it: impl Iterator<Item=T>) -> impl Iterator<Item=U> {
+    it.map(f)
+}
+
+/// Used for sum Iterator<T>
+/// 
+/// # Arguments
+/// 
+/// * `it`: Iterator T
+pub fn sum<T: Sum>(it: impl Iterator<Item=T>) -> T {
+    it.sum()
+}
+
 /// Used for fold the double end iterator from the beginning with init value and fold function
 /// 
 /// # Arguments
@@ -14,19 +35,6 @@
 /// * `it`: DoubleEndedIterator T
 pub fn foldl<T,R>(init: R, f: impl Fn(R,T) -> R, it: impl DoubleEndedIterator<Item=T>) -> R {
     it.fold(init, f)
-}
-
-/// Curry macro of [`foldl`]
-/// 
-/// **Signature**: foldl :: R -> (R -> T -> R) -> DoubleEndedIterator T -> R
-#[macro_export]
-macro_rules! foldl {
-    ($init:expr,$f:expr) => {
-        move |it| foldl($init,$f,it)
-    };
-    ($init:expr) => {
-        move |f,it| foldl($init,f,it)
-    };
 }
 
 /// Used for fold the double end iterator from the end with init value and fold function
@@ -40,15 +48,22 @@ pub fn foldr<T,R>(init: R, f: impl Fn(R,T) -> R, it: impl DoubleEndedIterator<It
     it.rev().fold(init, f)
 }
 
-/// Curry macro of [`foldr`]
+/// Used for filter Iterator<T>
 /// 
-/// **Signature**: foldr :: R -> (R -> T -> R) -> DoubleEndedIterator T -> R
-#[macro_export]
-macro_rules! foldr {
-    ($init:expr,$f:expr) => {
-        move |it| foldr($init,$f,it)
-    };
-    ($init:expr) => {
-        move |f,it| foldr($init,f,it)
-    }
+/// # Arguments
+/// 
+/// * `f`: f :: T -> bool, function to filter item
+/// * `it`: Iterator to be filtered
+pub fn filter<T>(f: impl Fn(&T) -> bool, it: impl Iterator<Item=T>) -> impl Iterator<Item=T> {
+    it.filter(f)
+}
+
+/// Used for reverse filter Iterator<T>
+/// 
+/// # Arguments
+/// 
+/// * `f`: f :: T -> bool, function to reverse filter item
+/// * `it`: Iterator to be filtered
+pub fn filter_not<T>(f: impl Fn(&T) -> bool, it: impl Iterator<Item=T>) -> impl Iterator<Item=T> {
+    it.filter(move |x| !f(x))
 }

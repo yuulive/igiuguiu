@@ -10,11 +10,6 @@
 //! Basic functions and ADTs with implementation will be provided as much as I can.
 
 pub mod basic_fn {
-    pub mod pipe;
-    pub mod compose;
-    pub mod map;
-    pub mod filter;
-    pub mod fold;
-    pub mod sum;
-    pub mod list;
+    pub mod fun;
+    pub mod mac;
 }
