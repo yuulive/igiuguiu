@@ -24,15 +24,15 @@
 - [ ] `contains`
 - [ ] `count`
 - [ ] `count_if`
-- [ ] `head`
-- [ ] `tail`
-- [ ] `init`
-- [ ] `last`
-- [ ] `drop`
-- [ ] `drop_last`
-- [ ] `drop_while`
-- [ ] `drop_last_while`
-- [ ] `drop_duplicate`
+- [x] `head` - 0.1.5
+- [x] `tail` - 0.1.5
+- [x] `init` - 0.1.5
+- [x] `last` - 0.1.5
+- [x] ~~drop~~ -> `skip` - 0.1.5
+- [ ] ~~drop_last~~ -> `skip_last`
+- [ ] ~~drop_while~~ -> `skip_while`
+- [ ] ~~drop_last_while~~ -> `skip_last_while`
+- [ ] ~~drop_duplicate~~ -> `skip_duplicate`
 - [ ] `either`
 - [ ] `ends_with`
 - [ ] `equals`
@@ -108,7 +108,7 @@
 - [ ] `starts_with`
 - [x] `sum` - 0.1.2, with shorthand macro
 - [ ] `diff`
-- [ ] `take`
+- [x] `take` - 0.1.5
 - [ ] `take_last`
 - [ ] `take_last_while`
 - [ ] `take_while`

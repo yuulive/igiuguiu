@@ -5,9 +5,9 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-/// Curry macro of [`map`]
+/// Curry macro of [map](basic_fn::fun::map)
 /// 
-/// **Signature**: map :: (T -> U) -> Iterator T -> Iterator U
+/// **Signature**: map :: (T -> U) -> [`Iterator`] T -> [`Iterator`] U
 #[macro_export]
 macro_rules! map {
     ($f:expr) => {
@@ -18,7 +18,7 @@ macro_rules! map {
 /// Shorthand macro of sum
 /// 
 /// Syntax:
-/// 1. sum!(0,5) // equals sum(0..=5)
+/// 1. sum!(0;5) // equals sum(0..=5)
 /// 2. sum!(0,1,2,3,4,5)
 #[macro_export]
 macro_rules! sum {
@@ -55,10 +55,10 @@ macro_rules! pipe  {
 }
 
 /// This macro is used to provide ability of list comprehension.
-/// Return Vec<T>.
+/// Return [`Vec`]<T>.
 /// 
 /// Format:
-/// ls![{Mapper};{Iter}=>{Filterer}]
+/// `ls![{Mapper};{Iter}=>{Filterer}]`
 /// 
 /// Haskell form:
 /// ```haskell
@@ -72,7 +72,7 @@ macro_rules! pipe  {
 /// # Arguments
 /// 
 /// * `Mapper`: T -> U - Optional, function to map on item
-/// * `Iter` - Iterator<T>
+/// * `Iter` - [`Iterator`]<T>
 /// * `Filterer` T -> bool - Optional, to filter items
 #[macro_export]
 macro_rules! ls {
@@ -96,9 +96,9 @@ macro_rules! ls {
     }};
 }
 
-/// Curry macro of [`foldl`]
+/// Curry macro of [foldl](basic_fn::fun::foldl)
 /// 
-/// **Signature**: foldl :: R -> (R -> T -> R) -> DoubleEndedIterator T -> R
+/// **Signature**: foldl :: R -> (R -> T -> R) -> [`DoubleEndedIterator`] T -> R
 #[macro_export]
 macro_rules! foldl {
     ($init:expr,$f:expr) => {
@@ -112,9 +112,9 @@ macro_rules! foldl {
     };
 }
 
-/// Curry macro of [`foldr`]
+/// Curry macro of [foldr](basic_fn::fun::foldr)
 /// 
-/// **Signature**: foldr :: R -> (R -> T -> R) -> DoubleEndedIterator T -> R
+/// **Signature**: foldr :: R -> (R -> T -> R) -> [`DoubleEndedIterator`] T -> R
 #[macro_export]
 macro_rules! foldr {
     ($init:expr,$f:expr) => {
@@ -128,9 +128,9 @@ macro_rules! foldr {
     };
 }
 
-/// Curry macro of [`filter`]
+/// Curry macro of [filter](basic_fn::fun::filter)
 /// 
-/// **Signature**: filter :: (T -> bool) -> Iterator T -> Iterator T
+/// **Signature**: filter :: (T -> bool) -> [`Iterator`] T -> [`Iterator`] T
 #[macro_export]
 macro_rules! filter {
     ($f:expr) => {
@@ -138,9 +138,9 @@ macro_rules! filter {
     };
 }
 
-/// Curry macro of [`filter_not`]
+/// Curry macro of [filter_not](basic_fn::fun::filter_not)
 /// 
-/// **Signature**: filter_not :: (T -> bool) -> Iterator T -> Iterator T
+/// **Signature**: filter_not :: (T -> bool) -> [`Iterator`]) T -> [`Iterator`] T
 #[macro_export]
 macro_rules! filter_not {
     ($f:expr) => {
@@ -164,5 +164,25 @@ macro_rules! compose {
     };
     (@NEXT [$($fs:expr),*],$f:expr) => {
         pipe!($f,$($fs),*)
+    };
+}
+
+/// Shorthand of [skip](basic_fn::fun::skip)
+///
+/// **Signature**: skip :: [`usize`] -> [`Iterator`] T -> [`Iterator`] T
+#[macro_export]
+macro_rules! skip {
+    ($n:expr) => {
+        move |it| skip($n, it)
+    };
+}
+
+/// Shorthand of [take](basic_fn::fun::take)
+///
+/// **Signature**: take :: [`usize`] -> [`Iterator`] T -> [`Iterator`] T
+#[macro_export]
+macro_rules! take {
+    ($n:expr) => {
+        move |it| take($n, it)
     };
 }

@@ -174,3 +174,77 @@ fn ls() {
     // 4. iter
     assert_eq!(ls![0..=4], vec![0,1,2,3,4]);
 }
+
+#[test]
+// fn head
+fn head() {
+    use kaguya_rs::basic_fn::fun::head;
+    let empty_vec = Vec::new() as Vec<i8>;
+    let vec = vec![1,2,3];
+
+    assert_eq!(None, head(empty_vec));
+    assert_eq!(Some(1), head(vec));
+}
+
+#[test]
+// fn tail
+fn tail() {
+    use kaguya_rs::basic_fn::fun::tail;
+    let empty_vec = Vec::new() as Vec<i8>;
+    let vec = vec![1, 2, 3];
+
+    assert_eq!(None, tail(empty_vec));
+    assert_eq!(Some(vec![2, 3]), tail(vec));
+}
+
+#[test]
+// fn last
+fn last() {
+    use kaguya_rs::basic_fn::fun::last;
+    let empty_vec = Vec::new() as Vec<i8>;
+    let vec = vec![1, 2, 3];
+
+    assert_eq!(None, last(empty_vec));
+    assert_eq!(Some(3), last(vec));
+}
+
+#[test]
+// fn init
+fn init() {
+    use kaguya_rs::basic_fn::fun::init;
+    let empty_vec = Vec::new() as Vec<i8>;
+    let vec = vec![1,2,3];
+
+    assert_eq!(None, init(empty_vec));
+    assert_eq!(Some(vec![1,2]), init(vec));
+}
+
+#[test]
+// fn and macro skip
+fn skip() {
+    use kaguya_rs::basic_fn::fun::skip;
+    let empty_vec = Vec::new() as Vec<i8>;
+    let vec = vec![1,2,3];
+
+    assert_eq!(Vec::new() as Vec<i8>, skip(1,empty_vec.clone()));
+    assert_eq!(vec![2,3], skip(1, vec.clone()));
+
+    let curry = skip!(1);
+    assert_eq!((Vec::new() as Vec<i8>), curry(empty_vec));
+    assert_eq!(vec![2, 3], curry(vec));
+}
+
+#[test]
+// fn and macro take
+fn take() {
+    use kaguya_rs::basic_fn::fun::take;
+    let empty_rec = Vec::new() as Vec<i8>;
+    let vec = vec![1,2,3];
+
+    assert_eq!(Vec::new() as Vec<i8>, take(2, empty_rec.clone()));
+    assert_eq!(vec![1,2], take(2, vec.clone()));
+
+    let curry = take!(2);
+    assert_eq!(Vec::new() as Vec<i8>, curry(empty_rec));
+    assert_eq!(vec![1,2], curry(vec));
+}

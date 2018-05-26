@@ -9,6 +9,7 @@
 //! 
 //! Basic functions and ADTs with implementation will be provided as much as I can.
 
+// for crate docs
 #![feature(universal_impl_trait,conservative_impl_trait)]
 
 pub mod basic_fn {

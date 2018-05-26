@@ -22,7 +22,7 @@ In fact, this is just the way I get familiar with Rust.
 I will try my best to implement as many as utilities.
 But NEVER try this in production environment UNTIL:
 
-1. Someday, I remove `TOY` in Introduction. OR
+1. Someday, I remove **TOY** in Introduction. OR
 2. I publish 1.0-stable version.
 
 Key concerns of this library:
@@ -44,7 +44,9 @@ kaguya_rs = "*"
 Please refer tests and [Docs](https://docs.rs/kaguya_rs)
 
 ### Requirement
-rustc version >= 1.26
+- toolchain: nightly
+    + it can be normally used in stable, however feature is required for crate docs, clone repo if you want to use under stable
+- rustc version >= 1.26
 
 ### Basic function
 Basic function and its signature provided is listed below, function based on map will be applied later
