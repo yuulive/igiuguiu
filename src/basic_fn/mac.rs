@@ -5,8 +5,6 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-use basic_fn::fun::*;
-
 /// Curry macro of [`map`]
 /// 
 /// **Signature**: map :: (T -> U) -> Iterator T -> Iterator U
