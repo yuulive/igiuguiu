@@ -182,8 +182,8 @@ fn head() {
     let empty_vec = Vec::new() as Vec<i8>;
     let vec = vec![1,2,3];
 
-    assert_eq!(None, head(empty_vec));
-    assert_eq!(Some(1), head(vec));
+    assert_eq!(None, head(empty_vec.iter()));
+    assert_eq!(Some(&1), head(vec.iter()));
 }
 
 #[test]
@@ -193,8 +193,8 @@ fn tail() {
     let empty_vec = Vec::new() as Vec<i8>;
     let vec = vec![1, 2, 3];
 
-    assert_eq!(None, tail(empty_vec));
-    assert_eq!(Some(vec![2, 3]), tail(vec));
+    assert_eq!(None, tail(empty_vec.iter()));
+    assert_eq!(Some(vec![&2, &3]), tail(vec.iter()));
 }
 
 #[test]
@@ -204,8 +204,8 @@ fn last() {
     let empty_vec = Vec::new() as Vec<i8>;
     let vec = vec![1, 2, 3];
 
-    assert_eq!(None, last(empty_vec));
-    assert_eq!(Some(3), last(vec));
+    assert_eq!(None, last(empty_vec.iter()));
+    assert_eq!(Some(&3), last(vec.iter()));
 }
 
 #[test]
@@ -215,8 +215,8 @@ fn init() {
     let empty_vec = Vec::new() as Vec<i8>;
     let vec = vec![1,2,3];
 
-    assert_eq!(None, init(empty_vec));
-    assert_eq!(Some(vec![1,2]), init(vec));
+    assert_eq!(None, init(empty_vec.iter()));
+    assert_eq!(Some(vec![&1,&2]), init(vec.iter()));
 }
 
 #[test]
@@ -226,12 +226,12 @@ fn skip() {
     let empty_vec = Vec::new() as Vec<i8>;
     let vec = vec![1,2,3];
 
-    assert_eq!(Vec::new() as Vec<i8>, skip(1,empty_vec.clone()));
-    assert_eq!(vec![2,3], skip(1, vec.clone()));
+    assert_eq!(Vec::new() as Vec<&i8>, skip(1,empty_vec.iter()));
+    assert_eq!(vec![&2,&3], skip(1, vec.iter()));
 
     let curry = skip!(1);
-    assert_eq!((Vec::new() as Vec<i8>), curry(empty_vec));
-    assert_eq!(vec![2, 3], curry(vec));
+    assert_eq!((Vec::new() as Vec<&i8>), curry(empty_vec.iter()));
+    assert_eq!(vec![&2, &3], curry(vec.iter()));
 }
 
 #[test]
@@ -241,10 +241,10 @@ fn take() {
     let empty_rec = Vec::new() as Vec<i8>;
     let vec = vec![1,2,3];
 
-    assert_eq!(Vec::new() as Vec<i8>, take(2, empty_rec.clone()));
-    assert_eq!(vec![1,2], take(2, vec.clone()));
+    assert_eq!(Vec::new() as Vec<&i8>, take(2, empty_rec.iter()));
+    assert_eq!(vec![&1,&2], take(2, vec.iter()));
 
     let curry = take!(2);
-    assert_eq!(Vec::new() as Vec<i8>, curry(empty_rec));
-    assert_eq!(vec![1,2], curry(vec));
+    assert_eq!(Vec::new() as Vec<&i8>, curry(empty_rec.iter()));
+    assert_eq!(vec![&1,&2], curry(vec.iter()));
 }

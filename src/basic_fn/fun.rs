@@ -68,53 +68,50 @@ pub fn filter_not<T>(f: impl Fn(&T) -> bool, it: impl Iterator<Item=T>) -> impl 
     it.filter(move |x| !f(x))
 }
 
-/// Getting the first element of [`IntoIterator`]<T>
+/// Getting the first element of [`Iterator`]<T>
 ///
 /// # Arguments
 ///
-/// * `it`: [`IntoIterator`] T
-pub fn head<T>(it: impl IntoIterator<Item=T>) -> Option<T> {
-    it.into_iter().next()
+/// * `it`: [`Iterator`] T
+pub fn head<T>(mut it: impl Iterator<Item=T>) -> Option<T> {
+    it.next()
 }
 
-/// Getting all elements of [`IntoIterator`]<T> except first as [`Vec`]<T>
+/// Getting all elements of [`Iterator`]<T> except first as [`Vec`]<T>
 ///
 /// # Arguments
 ///
-/// * `it`: [`IntoIterator`] T
-pub fn tail<T>(it: impl IntoIterator<Item=T>) -> Option<Vec<T>> {
-    let mut it_iter = it.into_iter();
-    if let Some(_) = it_iter.next() {
+/// * `it`: [`Iterator`] T
+pub fn tail<T>(mut it: impl Iterator<Item=T>) -> Option<Vec<T>> {
+    if let Some(_) = it.next() {
         let mut ret = Vec::new();
-        ret.extend(it_iter);
+        ret.extend(it);
         return Some(ret);
     }
     None
 }
 
-/// Getting last element of [`IntoIterator`]<T>
+/// Getting last element of [`Iterator`]<T>
 ///
 /// # Arguments
 ///
-/// * `it`: [`IntoIterator`] T
-pub fn last<T>(it: impl IntoIterator<Item=T>) -> Option<T> {
-    let it_iter = it.into_iter();
+/// * `it`: [`Iterator`] T
+pub fn last<T>(mut it: impl Iterator<Item=T>) -> Option<T> {
     let mut ret = None;
-    for i in it_iter {
+    for i in it {
         ret = Some(i);
     }
     ret
 }
 
-/// Getting all elements of [`IntoIterator`]<T> except the last one
+/// Getting all elements of [`Iterator`]<T> except the last one
 ///
 /// # Arguments
 ///
-/// * `it`: [`IntoIterator`] T
-pub fn init<T>(it: impl IntoIterator<Item=T>) -> Option<Vec<T>> {
+/// * `it`: [`Iterator`] T
+pub fn init<T>(mut it: impl Iterator<Item=T>) -> Option<Vec<T>> {
     let mut ret = Vec::new();
-    let it_iter = it.into_iter();
-    ret.extend(it_iter);
+    ret.extend(it);
     let size = ret.len();
     if size == 0 {
         return None;
@@ -129,13 +126,12 @@ pub fn init<T>(it: impl IntoIterator<Item=T>) -> Option<Vec<T>> {
 ///
 /// * `n`: elements count to skip
 /// * `it`: [`Iterator`] T
-pub fn skip<T>(n: usize, it: impl IntoIterator<Item=T>) -> Vec<T> {
-    let mut iter = it.into_iter();
+pub fn skip<T>(n: usize, mut it: impl Iterator<Item=T>) -> Vec<T> {
     for _ in 0..n {
-        iter.next();
+        it.next();
     }
     let mut ret = Vec::new();
-    ret.extend(iter);
+    ret.extend(it);
     ret
 }
 
@@ -145,11 +141,10 @@ pub fn skip<T>(n: usize, it: impl IntoIterator<Item=T>) -> Vec<T> {
 ///
 /// * `n`: elements count to take
 /// * `it`: [`Iterator`] T
-pub fn take<T>(n: usize, it: impl IntoIterator<Item=T>) -> Vec<T> {
-    let mut iter = it.into_iter();
+pub fn take<T>(n: usize, mut it: impl Iterator<Item=T>) -> Vec<T> {
     let mut ret = Vec::new();
     for _ in 0..n {
-        match iter.next() {
+        match it.next() {
             None => break,
             Some(item) => ret.push(item)
         }
