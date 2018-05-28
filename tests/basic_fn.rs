@@ -248,3 +248,109 @@ fn take() {
     assert_eq!(Vec::new() as Vec<&i8>, curry(empty_rec.iter()));
     assert_eq!(vec![&1,&2], curry(vec.iter()));
 }
+
+#[test]
+// fn and macro product
+fn product() {
+    use kaguya_rs::basic_fn::fun::product;
+    assert_eq!(product(1..=5), 120);
+
+    assert_eq!(product!(1;5), 120);
+    assert_eq!(product!(1,2,3,4,5), 120);
+}
+
+#[test]
+// fn length
+fn length() {
+    use kaguya_rs::basic_fn::fun::length;
+    assert_eq!(length(vec![1,2,3,4,5].iter()), 5);
+    assert_eq!(length(0..0), 0);
+}
+
+#[test]
+// fn reverse
+fn reverse() {
+    use kaguya_rs::basic_fn::fun::reverse;
+    assert_eq!(reverse(1..=5), vec![5,4,3,2,1]);
+}
+
+#[test]
+// fn and macro concat
+fn concat() {
+    use kaguya_rs::basic_fn::fun::concat;
+    assert_eq!(concat(0..1,1..2), vec![0,1]);
+    assert_eq!(
+        concat!(0..1;1..2;2..3;3..=4;vec![5,6].iter()),
+        vec![0,1,2,3,4,5,6]
+    );
+}
+
+#[test]
+// fun id
+fn id() {
+    use kaguya_rs::basic_fn::fun::id;
+    let vec = vec![1,2,3];
+    assert_eq!(id(vec.clone()), vec);
+}
+
+#[test]
+// macro fst
+fn fst() {
+    assert_eq!(fst!(("a", 1)), "a");
+    let f = fst!(>i8,f32,char);
+    assert_eq!(f((1,1.2,'3')), 1);
+    let a = (1,1.2,'3');
+    assert_eq!(fst!(a), 1);
+}
+
+#[test]
+// macro snd
+fn snd() {
+    assert_eq!(snd!((1.1, "Bravo")), "Bravo");
+    let f = snd!(>String,String,String);
+    assert_eq!(f(("Houraisan".to_string(), "Kaguya".to_string(), "美しい".to_string())), "Kaguya");
+    let a = (1,3,2.5);
+    assert_eq!(snd!(a), 3);
+}
+
+#[test]
+// fn neg
+fn neg() {
+    use kaguya_rs::basic_fn::fun::neg;
+    assert_eq!(neg(1), -1);
+    assert_eq!(neg(-1), 1);
+}
+
+#[test]
+// macro abs
+fn abs() {
+    assert_eq!(abs!(-1_i32), 1);
+    assert_eq!(abs!(1_i32), 1);
+
+    let f = abs!(>i32);
+    assert_eq!(f(-1), 1);
+    assert_eq!(f(1), 1);
+}
+
+#[test]
+// macro signum
+fn signum() {
+    assert_eq!(signum!(-100_i32), -1);
+    assert_eq!(signum!(0_i32), 0);
+    assert_eq!(signum!(5_i32), 1);
+
+    let f = signum!(>i32);
+    assert_eq!(f(-100), -1);
+    assert_eq!(f(0), 0);
+    assert_eq!(f(5), 1);
+}
+
+#[test]
+// fn and macro rem
+fn rem() {
+    use kaguya_rs::basic_fn::fun::rem;
+    assert_eq!(rem(3, 2), 1);
+    assert_eq!(rem!(3, 2), 1);
+    let f = rem!(3_i32);
+    assert_eq!(f(2), 1);
+}

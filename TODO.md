@@ -13,7 +13,6 @@
 - [ ] `trim`
 - [ ] `all`
 - [ ] `all_pass`
-- [ ] `id`
 - [ ] `and`
 - [ ] `any`
 - [ ] `any_pass`
@@ -56,7 +55,7 @@
 - [ ] `is_empty`
 - [ ] `join`
 - [ ] `last_index_of`
-- [ ] `length`
+- [x] `length` - 0.1.5
 - [ ] `lens`
 - [ ] `lens_index`
 - [ ] `lens_path`
@@ -67,16 +66,16 @@
 - [ ] `map_accum`
 - [ ] `map_accum_right`
 - [ ] `match`
-- [ ] `mod -> (quotient, reminder)`
-- [ ] `max`
+- [x] ~~mod~~ -> `rem` - 0.1.5
+- [x] `max` - 0.1.5
 - [ ] `max_by`
 - [ ] `mean`
 - [ ] `median`
 - [ ] `memoize_with`
-- [ ] `min`
+- [x] `min` - 0.1.5
 - [ ] `min_by`
 - [ ] `multiply`
-- [ ] `negate`
+- [x] `neg` - 0.1.5
 - [ ] `none`
 - [ ] `not`
 - [ ] `nth`
@@ -85,7 +84,7 @@
 - [ ] `over`
 - [ ] `partition`
 - [ ] `prepend`
-- [ ] `product`
+- [x] `product` - 0.1.5, with shorthand macro
 - [ ] `foldl_by`
 - [ ] `foldr_by`
 - [ ] `fold_while`
@@ -93,7 +92,7 @@
 - [ ] `remove`
 - [ ] `repeat`
 - [ ] `replace`
-- [ ] `reverse`
+- [x] `reverse` - 0.1.5
 - [ ] `scan`
 - [ ] `sequence`
 - [ ] `set`
@@ -139,6 +138,10 @@
 - [ ] `without`
 - [ ] `zip`
 - [ ] `zip_with`
+- [x] `concat` - 0.1.5
+- [x] `id` - 0.1.5
+- [x] `abs` - 0.1.5
+- [x] `signum` - 0.1.5
 #### Macro(Auto Curry)
 - [ ] `ap! //Applicative`
 - [ ] `flat_map! //Monad`
@@ -146,6 +149,8 @@
 - [x] `pipe!` - 0.1.0
 - [ ] `converge!`
 - [ ] `flatten!`
+- [x] `fst` - 0.1.5
+- [x] `snd` - 0.1.5
 #### I have no idea how to do it
 - [ ] `curry`
 - [ ] `partial`

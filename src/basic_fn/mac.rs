@@ -186,3 +186,89 @@ macro_rules! take {
         move |it| take($n, it)
     };
 }
+
+/// Shorthand macro of [product](basic_fn::fun::product)
+///
+/// Syntax:
+/// 1. product!(0;5) // equals product(0..=5)
+/// 2. product!(0,1,2,3,4,5)
+#[macro_export]
+macro_rules! product {
+    ($i:expr;$j:expr) => {{
+        product($i..=$j)
+    }};
+    ($i:expr,$($j:expr),*) => {{
+        $i * product!($($j),*)
+    }};
+    ($i:expr) => {
+        $i
+    };
+}
+
+/// Extend [concat](basic_fn::fun::concat)
+///
+/// Syntax:
+/// concat!(it1;it2;it3...)
+#[macro_export]
+macro_rules! concat {
+    ($($it:expr);*) => {{
+        let mut ret = Vec::new();
+        $(ret.extend($it););*
+        ret
+    }};
+}
+
+/// Get the first element of [`tuple`]
+///
+/// Syntax:
+/// 1. fst!(>type,type...) :: (a,b,...) -> a
+/// 2. fst!((a,b,...)|) -> a
+/// 3. let x = (a,b); fst!(x) -> a
+#[macro_export]
+macro_rules! fst {
+    (>$($t:ty),*) => {move |x: ($($t),*)| x.0};
+    ($x:expr) => {{$x.0}};
+    ($x:pat) => {{$x.0}};
+}
+
+/// Get the second element of [`tuple`]
+///
+/// Syntax:
+/// 1. snd!(>type,type...) :: (a,b,...) -> b
+/// 2. snd!((a,b,...)|) -> b
+/// 3. let x = (a,b); snd!(x) -> b
+#[macro_export]
+macro_rules! snd {
+    (>$($t:ty),*) => {move |x: ($($t),*)| x.1};
+    ($x:expr) => {{$x.1}};
+    ($x:pat) => {{$x.1}};
+}
+
+/// Get reminder of division
+#[macro_export]
+macro_rules! rem {
+    ($x:expr,$y:expr) => {{rem($x, $y)}};
+    ($x:expr) => {move |y| rem($x, y)};
+}
+
+/// Absolute of signed
+///
+/// Syntax:
+/// 1. abs(>type) :: Signed type => type -> type
+/// 2. abs(x) -> x
+#[macro_export]
+macro_rules! abs {
+    (>$t:ty) => {move |x: $t| x.abs()};
+    ($x:expr) => {{$x.abs()}};
+}
+
+/// Signum of signed
+///
+/// Syntax:
+/// 1. signum(>type) :: Signed type => type -> -1|0|1
+/// 2. signum(x) -> -1|0|1
+#[macro_export]
+macro_rules! signum {
+    (>$t:ty) => {move |x: $t| x.signum()};
+    ($x:expr) => {{$x.signum()}};
+}

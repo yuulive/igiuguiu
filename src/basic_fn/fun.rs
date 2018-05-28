@@ -5,7 +5,8 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-use std::iter::Sum;
+use std::iter::{Product, Sum};
+use std::ops::{Rem, Neg};
 
 /// Used for data projection via mapping function.
 /// 
@@ -20,7 +21,7 @@ pub fn map<T,U>(f: impl Fn(T) -> U, it: impl Iterator<Item=T>) -> impl Iterator<
 /// Used for sum [`Iterator`]<T>
 /// 
 /// # Arguments
-/// 
+/// Mul
 /// * `it`: [`Iterator`] T
 pub fn sum<T: Sum>(it: impl Iterator<Item=T>) -> T {
     it.sum()
@@ -96,7 +97,7 @@ pub fn tail<T>(mut it: impl Iterator<Item=T>) -> Option<Vec<T>> {
 /// # Arguments
 ///
 /// * `it`: [`Iterator`] T
-pub fn last<T>(mut it: impl Iterator<Item=T>) -> Option<T> {
+pub fn last<T>(it: impl Iterator<Item=T>) -> Option<T> {
     let mut ret = None;
     for i in it {
         ret = Some(i);
@@ -109,7 +110,7 @@ pub fn last<T>(mut it: impl Iterator<Item=T>) -> Option<T> {
 /// # Arguments
 ///
 /// * `it`: [`Iterator`] T
-pub fn init<T>(mut it: impl Iterator<Item=T>) -> Option<Vec<T>> {
+pub fn init<T>(it: impl Iterator<Item=T>) -> Option<Vec<T>> {
     let mut ret = Vec::new();
     ret.extend(it);
     let size = ret.len();
@@ -150,4 +151,94 @@ pub fn take<T>(n: usize, mut it: impl Iterator<Item=T>) -> Vec<T> {
         }
     }
     ret
+}
+
+/// Invoke [`Mul`] over a [`Iterator`]<T>
+///
+/// # Arguments
+///
+/// * `it`: [`Iterator`] T
+pub fn product<T: Product>(it: impl Iterator<Item=T>) -> T {
+    it.product()
+}
+
+/// Get the length of [`Iterator`]<T>
+///
+/// # Arguments
+///
+/// * `it`: [`Iterator`] T
+pub fn length<T>(it: impl Iterator<Item=T>) -> usize {
+    it.count()
+}
+
+/// Reverse a [`Iterator`]<T>
+///
+/// # Arguments
+///
+/// * `it`: [`Iterator`] T
+pub fn reverse<T>(it: impl Iterator<Item=T>) -> Vec<T> {
+    let mut ret = Vec::new();
+    ret.extend(it);
+    ret.reverse();
+    ret
+}
+
+/// Concat two [`Iterator`]<T> into one [`Vec`]<T>
+///
+/// # Arguments
+///
+/// * `it`: [`Iterator`] T
+pub fn concat<T>(it1: impl Iterator<Item=T>, it2: impl Iterator<Item=T>) -> Vec<T> {
+    let mut ret = Vec::new();
+    ret.extend(it1);
+    ret.extend(it2);
+    ret
+}
+
+/// Return what you pass to this function
+///
+/// # Arguments
+///
+/// * `x`: T
+pub fn id<T>(x: T) -> T {
+    x
+}
+
+/// Get min value of [`Iterator`]<T>
+///
+/// # Arguments
+///
+/// * `it`: [`Iterator`] T
+pub fn min<T: Ord>(it: impl Iterator<Item=T>) -> Option<T> {
+    it.min()
+}
+
+/// Get max value of [`Iterator`]<T>
+///
+/// # Arguments
+///
+/// * `it`: [`Iterator`] T
+pub fn max<T: Ord>(it: impl Iterator<Item=T>) -> Option<T> {
+    it.max()
+}
+
+/// Unary operator -
+///
+/// # Arguments
+///
+/// * `x`: Neg t => t -> t
+pub fn neg<U,T: Neg<Output=U>>(x: T) -> U {
+    x.neg()
+}
+
+/// Get reminder of division, i.e. x%y
+///
+/// # Arguments
+///
+/// * `x`: Rem t => t
+/// * `y`: Rem t => t
+pub fn rem<T,U>(x: T, y: T) -> U
+    where T: Rem<Output=U>
+{
+    x.rem(y)
 }
