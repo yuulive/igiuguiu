@@ -6,7 +6,8 @@
 // except according to those terms.
 
 use std::iter::{Product, Sum};
-use std::ops::{Rem, Neg};
+use std::ops::{Rem, Neg, Add, Sub, Div, Mul};
+use std::cmp::PartialEq;
 
 /// Used for data projection via mapping function.
 /// 
@@ -237,8 +238,44 @@ pub fn neg<U,T: Neg<Output=U>>(x: T) -> U {
 ///
 /// * `x`: Rem t => t
 /// * `y`: Rem t => t
-pub fn rem<T,U>(x: T, y: T) -> U
-    where T: Rem<Output=U>
+pub fn rem<T>(x: T, y: T) -> T
+    where T: Rem<Output=T>
 {
     x.rem(y)
+}
+
+/// x + y
+///
+/// # Arguments
+/// * `x`: Add t => t
+/// * `y`: Add t => t
+pub fn add<T: Add<Output=T>>(x: T, y: T) -> T {
+    x + y
+}
+
+/// x - y
+///
+/// # Arguments
+/// * `x`: Sub t => t
+/// * `y`: Sub t => t
+pub fn sub<T: Sub<Output=T>>(x: T, y: T) -> T {
+    x - y
+}
+
+/// x * y
+///
+/// # Arguments
+/// * `x`: Mul t => t
+/// * `y`: Mul t => t
+pub fn mul<T: Mul<Output=T>>(x: T, y: T) -> T {
+    x * y
+}
+
+/// x / y
+///
+/// # Arguments
+/// * `x`: Div t => t
+/// * `y`: Div t => t
+pub fn div<T: Div<Output=T>>(x: T, y: T) -> T {
+    x / y
 }

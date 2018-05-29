@@ -354,3 +354,53 @@ fn rem() {
     let f = rem!(3_i32);
     assert_eq!(f(2), 1);
 }
+
+#[test]
+// macro odd/even
+fn odd_and_even() {
+    assert!(even!(2));
+    assert!(odd!(1));
+
+    let f1 = even!(>i32);
+    let f2 = odd!(>i32);
+    assert!(f1(2));
+    assert!(f2(1));
+}
+
+#[test]
+// macro always
+fn always() {
+    assert_eq!(always!(1, 'a'), 1);
+    assert_eq!(always!(1)('a'), 1);
+
+    let f = always!();
+    assert_eq!(f(1, 'a'), 1);
+
+    let f2 = always!(=>);
+    assert_eq!(f2(1)('a'), 1);
+}
+
+#[test]
+// fn and macro add/sub/mul/div
+fn add_sub_mul_div() {
+    use kaguya_rs::basic_fn::fun::{add, sub, mul, div};
+    // add
+    assert_eq!(add(1,2), 1 + 2);
+    assert_eq!(add!(1, 2), 1+2);
+    assert_eq!(add!(1)(2), 1+2);
+
+    // sub
+    assert_eq!(sub(9,1),9-1);
+    assert_eq!(sub!(9,1),9-1);
+    assert_eq!(sub!(9)(1), 9-1);
+
+    //mul
+    assert_eq!(mul(2,3),2*3);
+    assert_eq!(mul!(2,3),2*3);
+    assert_eq!(mul!(2)(3),2*3);
+
+    // div
+    assert_eq!(div(10,5), 10/5);
+    assert_eq!(div!(10,5), 10/5);
+    assert_eq!(div!(10)(5), 10/5);
+}

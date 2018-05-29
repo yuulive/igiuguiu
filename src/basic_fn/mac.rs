@@ -8,8 +8,7 @@
 /// Curry macro of [map](basic_fn::fun::map)
 /// 
 /// **Signature**: map :: (T -> U) -> [`Iterator`] T -> [`Iterator`] U
-#[macro_export]
-macro_rules! map {
+#[macro_export] macro_rules! map {
     ($f:expr) => {
         move |it| map($f, it)
     };
@@ -20,8 +19,7 @@ macro_rules! map {
 /// Syntax:
 /// 1. sum!(0;5) // equals sum(0..=5)
 /// 2. sum!(0,1,2,3,4,5)
-#[macro_export]
-macro_rules! sum {
+#[macro_export] macro_rules! sum {
     ($i:expr;$j:expr) => {{
         sum($i..=$j)
     }};
@@ -39,8 +37,7 @@ macro_rules! sum {
 /// # Arguments
 /// 
 /// * `args` - function or closure separated by comma(,)
-#[macro_export]
-macro_rules! pipe  {
+#[macro_export] macro_rules! pipe  {
     ($($f:expr),*) => {
         |v| {pipe!(@NEXT v, $($f),*) }
     };
@@ -74,8 +71,7 @@ macro_rules! pipe  {
 /// * `Mapper`: T -> U - Optional, function to map on item
 /// * `Iter` - [`Iterator`]<T>
 /// * `Filterer` T -> bool - Optional, to filter items
-#[macro_export]
-macro_rules! ls {
+#[macro_export] macro_rules! ls {
     ($it:expr) => {
         ls![|x| x;$it=>|_|true]
     };
@@ -99,8 +95,7 @@ macro_rules! ls {
 /// Curry macro of [foldl](basic_fn::fun::foldl)
 /// 
 /// **Signature**: foldl :: R -> (R -> T -> R) -> [`DoubleEndedIterator`] T -> R
-#[macro_export]
-macro_rules! foldl {
+#[macro_export] macro_rules! foldl {
     ($init:expr,$f:expr) => {
         move |it| foldl($init,$f,it)
     };
@@ -115,8 +110,7 @@ macro_rules! foldl {
 /// Curry macro of [foldr](basic_fn::fun::foldr)
 /// 
 /// **Signature**: foldr :: R -> (R -> T -> R) -> [`DoubleEndedIterator`] T -> R
-#[macro_export]
-macro_rules! foldr {
+#[macro_export] macro_rules! foldr {
     ($init:expr,$f:expr) => {
         move |it| foldr($init,$f,it)
     };
@@ -131,8 +125,7 @@ macro_rules! foldr {
 /// Curry macro of [filter](basic_fn::fun::filter)
 /// 
 /// **Signature**: filter :: (T -> bool) -> [`Iterator`] T -> [`Iterator`] T
-#[macro_export]
-macro_rules! filter {
+#[macro_export] macro_rules! filter {
     ($f:expr) => {
         move |it| filter($f, it)
     };
@@ -141,8 +134,7 @@ macro_rules! filter {
 /// Curry macro of [filter_not](basic_fn::fun::filter_not)
 /// 
 /// **Signature**: filter_not :: (T -> bool) -> [`Iterator`]) T -> [`Iterator`] T
-#[macro_export]
-macro_rules! filter_not {
+#[macro_export] macro_rules! filter_not {
     ($f:expr) => {
         move |it| filter_not($f, it)
     };
@@ -154,8 +146,7 @@ macro_rules! filter_not {
 /// # Arguments
 /// 
 /// * `args` - function or closure separated by comma(,)
-#[macro_export]
-macro_rules! compose {
+#[macro_export] macro_rules! compose {
     ($f:expr,$($fs:expr),*) => {
         compose!(@NEXT [$f],$($fs),*)
     };
@@ -170,8 +161,7 @@ macro_rules! compose {
 /// Shorthand of [skip](basic_fn::fun::skip)
 ///
 /// **Signature**: skip :: [`usize`] -> [`Iterator`] T -> [`Iterator`] T
-#[macro_export]
-macro_rules! skip {
+#[macro_export] macro_rules! skip {
     ($n:expr) => {
         move |it| skip($n, it)
     };
@@ -180,8 +170,7 @@ macro_rules! skip {
 /// Shorthand of [take](basic_fn::fun::take)
 ///
 /// **Signature**: take :: [`usize`] -> [`Iterator`] T -> [`Iterator`] T
-#[macro_export]
-macro_rules! take {
+#[macro_export] macro_rules! take {
     ($n:expr) => {
         move |it| take($n, it)
     };
@@ -192,8 +181,7 @@ macro_rules! take {
 /// Syntax:
 /// 1. product!(0;5) // equals product(0..=5)
 /// 2. product!(0,1,2,3,4,5)
-#[macro_export]
-macro_rules! product {
+#[macro_export] macro_rules! product {
     ($i:expr;$j:expr) => {{
         product($i..=$j)
     }};
@@ -209,8 +197,7 @@ macro_rules! product {
 ///
 /// Syntax:
 /// concat!(it1;it2;it3...)
-#[macro_export]
-macro_rules! concat {
+#[macro_export] macro_rules! concat {
     ($($it:expr);*) => {{
         let mut ret = Vec::new();
         $(ret.extend($it););*
@@ -224,8 +211,7 @@ macro_rules! concat {
 /// 1. fst!(>type,type...) :: (a,b,...) -> a
 /// 2. fst!((a,b,...)|) -> a
 /// 3. let x = (a,b); fst!(x) -> a
-#[macro_export]
-macro_rules! fst {
+#[macro_export] macro_rules! fst {
     (>$($t:ty),*) => {move |x: ($($t),*)| x.0};
     ($x:expr) => {{$x.0}};
     ($x:pat) => {{$x.0}};
@@ -237,16 +223,14 @@ macro_rules! fst {
 /// 1. snd!(>type,type...) :: (a,b,...) -> b
 /// 2. snd!((a,b,...)|) -> b
 /// 3. let x = (a,b); snd!(x) -> b
-#[macro_export]
-macro_rules! snd {
+#[macro_export] macro_rules! snd {
     (>$($t:ty),*) => {move |x: ($($t),*)| x.1};
     ($x:expr) => {{$x.1}};
     ($x:pat) => {{$x.1}};
 }
 
 /// Get reminder of division
-#[macro_export]
-macro_rules! rem {
+#[macro_export] macro_rules! rem {
     ($x:expr,$y:expr) => {{rem($x, $y)}};
     ($x:expr) => {move |y| rem($x, y)};
 }
@@ -256,8 +240,7 @@ macro_rules! rem {
 /// Syntax:
 /// 1. abs(>type) :: Signed type => type -> type
 /// 2. abs(x) -> x
-#[macro_export]
-macro_rules! abs {
+#[macro_export] macro_rules! abs {
     (>$t:ty) => {move |x: $t| x.abs()};
     ($x:expr) => {{$x.abs()}};
 }
@@ -267,8 +250,94 @@ macro_rules! abs {
 /// Syntax:
 /// 1. signum(>type) :: Signed type => type -> -1|0|1
 /// 2. signum(x) -> -1|0|1
-#[macro_export]
-macro_rules! signum {
+#[macro_export] macro_rules! signum {
     (>$t:ty) => {move |x: $t| x.signum()};
     ($x:expr) => {{$x.signum()}};
+}
+
+/// check if a number is even
+///
+/// Syntax:
+/// 1. even!(x) -> bool
+/// 2. even!(>type) :: Integer -> bool
+#[macro_export] macro_rules! even {
+    (>$t:ty) => {move |x: $t| x % 2 == 0};
+    ($x:expr) => {{$x % 2 == 0}};
+}
+
+/// check if a number is odd
+///
+/// Syntax:
+/// 1. odd!(x) -> bool
+/// 2. odd!(>type) :: Integer -> bool
+#[macro_export] macro_rules! odd {
+    (>$t:ty) => {move |x: $t| x % 2 == 1};
+    ($x:expr) => {{$x % 2 == 1}};
+}
+
+/// 1/x
+///
+/// Syntax:
+/// 1. recip!(>type) :: T -> T
+/// 2. recip!(x) = 1/x
+///
+/// # Panics
+/// if x == 0
+#[macro_export] macro_rules! recip {
+    (>$t:ty) => {move |x: $t| 1/$t};
+    ($x:expr) => {{1/$x}};
+}
+
+/// always return first memorized values
+///
+/// Syntax:
+/// 1. always!() :: a -> Any -> a
+/// 2. always!(=>) :: a -> (Any -> a)
+/// 3. always!(x) :: Any -> x
+/// 4. always!(x,_) = x
+#[macro_export] macro_rules! always {
+    ($x:expr,$y:expr) => {{$x}};
+    ($x:expr) => {move |_| $x};
+    () => {move |x,_| x};
+    (=>) => {move |x| (move |_| x)};
+}
+
+/// x + y
+///
+/// Syntax:
+/// 1. add!(x) :: Add t => t -> t
+/// 2. add!(x,y) = x + y
+#[macro_export] macro_rules! add {
+    ($x:expr) => {move |y| $x + y};
+    ($x:expr,$y:expr) => {{$x + $y}};
+}
+
+/// x - y
+///
+/// Syntax:
+/// 1. sub!(x) :: Sub t => t -> t
+/// 2. sub!(x,y) = x - y
+#[macro_export] macro_rules! sub {
+    ($x:expr) => {move |y| $x - y};
+    ($x:expr,$y:expr) => {{$x - $y}};
+}
+
+/// x * y
+///
+/// Syntax:
+/// 1. mul!(x) :: Mul t => t -> t
+/// 2. mul!(x,y) = x * y
+#[macro_export] macro_rules! mul {
+    ($x:expr) => {move |y| $x * y};
+    ($x:expr,$y:expr) => {{$x * $y}};
+}
+
+/// x / y
+///
+/// Syntax:
+/// 1. div!(x) :: Div t => t -> t
+/// 2. div!(x,y) = x / y
+#[macro_export] macro_rules! div {
+    ($x:expr) => {move |y| $x / y};
+    ($x:expr,$y:expr) => {{$x / $y}};
 }

@@ -74,7 +74,7 @@
 - [ ] `memoize_with`
 - [x] `min` - 0.1.5
 - [ ] `min_by`
-- [ ] `multiply`
+- [x] `mul` - 0.1.5, with macro
 - [x] `neg` - 0.1.5
 - [ ] `none`
 - [ ] `not`
@@ -142,6 +142,9 @@
 - [x] `id` - 0.1.5
 - [x] `abs` - 0.1.5
 - [x] `signum` - 0.1.5
+- [x] `add` - 0.1.5, with macro
+- [x] `sub` - 0.1.5, with macro
+- [x] `div` - 0.1.5, with macro
 #### Macro(Auto Curry)
 - [ ] `ap! //Applicative`
 - [ ] `flat_map! //Monad`
@@ -151,6 +154,10 @@
 - [ ] `flatten!`
 - [x] `fst` - 0.1.5
 - [x] `snd` - 0.1.5
+- [x] `even` - 0.1.5
+- [x] `odd` - 0.1.5
+- [x] `recip` - 0.1.5
+- [x] `always` - 0.1.5
 #### I have no idea how to do it
 - [ ] `curry`
 - [ ] `partial`

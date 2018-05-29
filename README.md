@@ -74,9 +74,9 @@ There are some struct and enum that are widely used in Rust, e.g. Vec, HashMap, 
 ### Contribution and developing
 Feel free to contribute and develop base on this lib. Make sure you MUST follow the constraint of LICENSE.
 
-If you are interested to develop this library together, just make PRs with new issues **OR** send me a email to explain what you want to do for this library as a contributor.
+If you are interested to develop this library together, just make PRs **OR** send me a email to explain what you want to do for this library as a contributor.
 
-For PR and any other questions, please create a new issue for following.
+For other questions, please create a new issue for following.
 
 ### Thanks List
 - [RamdaJS](https://ramdajs.com/) - inspiration of most functions
