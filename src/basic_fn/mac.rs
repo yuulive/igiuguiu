@@ -56,7 +56,7 @@
 /// 
 /// Format:
 /// `ls![{Mapper};{Iter}=>{Filterer}]`
-/// 
+///
 /// Haskell form:
 /// ```haskell
 /// [{Mapper}(x) | x <- {Iter}, {Filterer}(x)]
@@ -305,7 +305,7 @@
 /// x + y
 ///
 /// Syntax:
-/// 1. add!(x) :: Add t => t -> t
+/// 1. add!(x) :: [`Add`] t => t -> t
 /// 2. add!(x,y) = x + y
 #[macro_export] macro_rules! add {
     ($x:expr) => {move |y| $x + y};
@@ -315,7 +315,7 @@
 /// x - y
 ///
 /// Syntax:
-/// 1. sub!(x) :: Sub t => t -> t
+/// 1. sub!(x) :: [`Sub`] t => t -> t
 /// 2. sub!(x,y) = x - y
 #[macro_export] macro_rules! sub {
     ($x:expr) => {move |y| $x - y};
@@ -325,7 +325,7 @@
 /// x * y
 ///
 /// Syntax:
-/// 1. mul!(x) :: Mul t => t -> t
+/// 1. mul!(x) :: [`Mul`] t => t -> t
 /// 2. mul!(x,y) = x * y
 #[macro_export] macro_rules! mul {
     ($x:expr) => {move |y| $x * y};
@@ -335,9 +335,70 @@
 /// x / y
 ///
 /// Syntax:
-/// 1. div!(x) :: Div t => t -> t
+/// 1. div!(x) :: [`Div`] t => t -> t
 /// 2. div!(x,y) = x / y
 #[macro_export] macro_rules! div {
     ($x:expr) => {move |y| $x / y};
     ($x:expr,$y:expr) => {{$x / $y}};
+}
+
+/// macro of [find](basic_fn::fun::find)(k, iter)
+///
+/// Syntax:
+/// 1. find!(k) :: [`Iterator`] (K,V) -> Option (K,V)
+/// 2. find!(k,iter) = find(k,iter)
+#[macro_export] macro_rules! find {
+    ($k:expr) => {move |it| find($k,it)};
+    ($k:expr,$it:expr) => {{find($k,$it)}};
+}
+
+/// macro of [sorted_by](basic_fn::fun::sorted_by)
+/// 
+/// Syntax:
+/// sorted_by!(f) :: [`Iterator`] T -> [`Iterator`] T
+#[macro_export] macro_rules! sorted_by {
+    ($f:expr) => {move |it| sorted_by($f, it)};
+}
+
+/// macro of sorted_with
+/// 
+/// fs = [f], f :: (&T, &T) -> Ordering
+/// 
+/// Syntax:
+/// 1. sorted_with!(fs,...) :: [`Iterator`] T -> [`Iterator`] T
+/// 2. sorted_with!(fs,...;it) = [`Iterator`] T
+// TODO - to be continued
+// #[macro_export] macro_rules! sorted_with {
+//     ($($f:expr),*) => {move |it| sorted_with!($($f),*;it)};
+//     ($head:expr,$($f:expr),*;$it:expr) => {{
+//         use std::cmp::Ordering;
+//         for move |x,y| {
+//             let tmp = $head(x,y);
+//             if tmp == Ordering::Equal {
+//                 sorted_with!($($f),*;$it)
+//             } else {
+//                 tmp
+//             }
+//         }
+//     }};
+// }
+
+/// macro of [zip](basic_fn::fun::zip)
+/// 
+/// Syntax:
+/// zip!(it) :: [`Iterator`] U -> [`Iterator`] (T,U)
+#[macro_export] macro_rules! zip {
+    ($it:expr) => {move |it| zip($it, it)};
+}
+
+/// macro of [zip_with](basic_fn::fun::zip_with)
+/// 
+/// Syntax:
+/// 1. zip_with!(f) :: ([`Iterator`] T -> [`Iterator`] U -> [`Iterator`] V) -> [`Iterator`] V
+/// 2. zip_with!(f=>) :: [`Iterator`] T -> [`Iterator`] U -> [`Iterator`] V
+/// 3. zip_with!(f, it) :: [`Iterator`] U -> [`Iterator`] V
+#[macro_export] macro_rules! zip_with {
+    ($f:expr) => {move |it1, it2| zip_with($f, it1, it2)};
+    ($f:expr=>) => {move |it1| (move |it2| zip_with($f, it1, it2))};
+    ($f:expr,$it:expr) => {move |it| zip_with($f, $it, it)};
 }

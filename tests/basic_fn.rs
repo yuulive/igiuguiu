@@ -4,6 +4,8 @@
 // http://www.apache.org/licenses/LICENSE-2.0>, at your
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
+#![feature(trace_macros)]
+
 #[macro_use]
 extern crate kaguya_rs;
 
@@ -403,4 +405,85 @@ fn add_sub_mul_div() {
     assert_eq!(div(10,5), 10/5);
     assert_eq!(div!(10,5), 10/5);
     assert_eq!(div!(10)(5), 10/5);
+}
+
+#[test]
+// fn and macro find
+fn find() {
+    use std::collections::HashMap;
+    use kaguya_rs::basic_fn::fun::find;
+    let mut m = HashMap::new();
+    m.insert('a', 1);
+    m.insert('b', 2);
+    m.insert('c', 3);
+    assert_eq!(find(&'a', m.iter()), Some((&'a', &1)));
+    let f = find!(&'b');
+    assert_eq!(f(m.iter()), Some((&'b', &2)));
+    assert_eq!(find!(&'d', m.iter()), None);
+}
+
+#[test]
+// fn sorted
+fn sorted() {
+    use kaguya_rs::basic_fn::fun::sorted;
+    let vec = vec![1,5,3,7,8,3,9,3,2];
+    assert_eq!(sorted(vec.iter()).map(|x| *x).collect::<Vec<i32>>(), vec![1,2,3,3,3,5,7,8,9]);
+}
+
+#[test]
+// fn and macro sorted_by
+fn sorted_by() {
+    use kaguya_rs::basic_fn::fun::sorted_by;
+    use std::cmp::Ordering;
+    let vec = vec![1,5,3,4,2];
+    assert_eq!(vec![5,4,3,2,1], sorted_by(|x,y| y.cmp(x), vec.iter()).map(|x| *x).collect::<Vec<i32>>());
+
+    fn cmp<'a, 'b, T: Ord>(x: &'a T, y: &'b T) -> Ordering {
+        x.cmp(y)
+    }
+    let f = sorted_by!(cmp);
+    assert_eq!(vec![1,2,3,4,5], f(vec.iter()).map(|x| *x).collect::<Vec<i32>>());
+}
+
+// #[test]
+// // macro sorted_with
+// fn sorted_with() {
+//     let ls = vec![(1,'a'), (1,'b'), (2,'a')];
+//     trace_macros!(true);
+//     let f = sorted_with!(
+//         |x: (&i32, &char),y: (&i32, &char)| x.0.cmp(y.0),
+//         |x: (&i32, &char),y: (&i32, &char)| y.1.cmp(x.1)
+//     );
+//     assert_eq!(vec![(1,'b'), (1,'a'), (2,'a')], f(ls.iter()));
+//     trace_macros!(false);
+// }
+
+#[test]
+// fn and macro zip
+fn zip() {
+    use kaguya_rs::basic_fn::fun::zip;
+    let ls1 = vec![1,2,3];
+    let ls2 = vec!['a','b','c'];
+    assert_eq!(zip(ls1.iter(), ls2.iter()).map(|(x,y)| (*x,*y)).collect::<Vec<_>>(), vec![(1,'a'), (2,'b'), (3,'c')]);
+
+    let it = ls1.iter();
+    let mac = zip!(it);
+    assert_eq!(mac(ls2.iter()).map(|(x,y)| (*x,*y)).collect::<Vec<_>>(), vec![(1,'a'), (2,'b'), (3,'c')]);
+}
+
+#[test]
+// fn and macro zip_with
+fn zip_with() {
+    use kaguya_rs::basic_fn::fun::zip_with;
+    let ls1 = vec![1,2,3];
+    let ls2 = vec![1,0,1];
+    assert_eq!(zip_with(move |(x,y)| x&y == 0, ls1.iter(), ls2.iter()).collect::<Vec<_>>(), vec![false, true, false]);
+
+    let mac1 = zip_with!(move |(x,y)| x&y == 0);
+    let mac2 = zip_with!(move |(x,y)| {x&y == 0} =>);
+    let it = ls1.iter();
+    let mac3 = zip_with!(move |(x,y)| x&y == 0, it);
+    assert_eq!(mac1(ls1.iter(), ls2.iter()).collect::<Vec<_>>(), vec![false, true, false]);
+    assert_eq!(mac2(ls1.iter())(ls2.iter()).collect::<Vec<_>>(), vec![false, true, false]);
+    assert_eq!(mac3(ls2.iter()).collect::<Vec<_>>(), vec![false, true, false]);
 }

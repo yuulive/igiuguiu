@@ -5,9 +5,10 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-use std::iter::{Product, Sum};
+use std::iter::{Product, Sum, Zip};
 use std::ops::{Rem, Neg, Add, Sub, Div, Mul};
-use std::cmp::PartialEq;
+use std::hash::Hash;
+use std::cmp::Ordering;
 
 /// Used for data projection via mapping function.
 /// 
@@ -227,7 +228,7 @@ pub fn max<T: Ord>(it: impl Iterator<Item=T>) -> Option<T> {
 ///
 /// # Arguments
 ///
-/// * `x`: Neg t => t -> t
+/// * `x`: [`Neg`] t => t -> t
 pub fn neg<U,T: Neg<Output=U>>(x: T) -> U {
     x.neg()
 }
@@ -236,8 +237,8 @@ pub fn neg<U,T: Neg<Output=U>>(x: T) -> U {
 ///
 /// # Arguments
 ///
-/// * `x`: Rem t => t
-/// * `y`: Rem t => t
+/// * `x`: [`Rem`] t => t
+/// * `y`: [`Rem`] t => t
 pub fn rem<T>(x: T, y: T) -> T
     where T: Rem<Output=T>
 {
@@ -247,8 +248,8 @@ pub fn rem<T>(x: T, y: T) -> T
 /// x + y
 ///
 /// # Arguments
-/// * `x`: Add t => t
-/// * `y`: Add t => t
+/// * `x`: [`Add`] t => t
+/// * `y`: [`Add`] t => t
 pub fn add<T: Add<Output=T>>(x: T, y: T) -> T {
     x + y
 }
@@ -256,8 +257,8 @@ pub fn add<T: Add<Output=T>>(x: T, y: T) -> T {
 /// x - y
 ///
 /// # Arguments
-/// * `x`: Sub t => t
-/// * `y`: Sub t => t
+/// * `x`: [`Sub`] t => t
+/// * `y`: [`Sub`] t => t
 pub fn sub<T: Sub<Output=T>>(x: T, y: T) -> T {
     x - y
 }
@@ -265,8 +266,8 @@ pub fn sub<T: Sub<Output=T>>(x: T, y: T) -> T {
 /// x * y
 ///
 /// # Arguments
-/// * `x`: Mul t => t
-/// * `y`: Mul t => t
+/// * `x`: [`Mul`] t => t
+/// * `y`: [`Mul`] t => t
 pub fn mul<T: Mul<Output=T>>(x: T, y: T) -> T {
     x * y
 }
@@ -274,8 +275,63 @@ pub fn mul<T: Mul<Output=T>>(x: T, y: T) -> T {
 /// x / y
 ///
 /// # Arguments
-/// * `x`: Div t => t
-/// * `y`: Div t => t
+/// * `x`: [`Div`] t => t
+/// * `y`: [`Div`] t => t
 pub fn div<T: Div<Output=T>>(x: T, y: T) -> T {
     x / y
+}
+
+/// find first element which match the key of [`Iterator`]<(K,V)>
+///
+/// # Arguments
+/// * `key`: [`Hash`]+[`Eq`] K => K
+/// * `it`: [`Iterator`] (K,V)
+pub fn find<K:Hash+Eq,V>(key: K, mut it: impl Iterator<Item=(K,V)>) -> Option<(K,V)> {
+    it.find(move |(x,_)| *x == key)
+}
+
+/// sort an [`Iterator`]<T>, T must impl Ord
+///
+/// # Arguments
+/// * `it`: [`Iterator`] T
+pub fn sorted<T: Ord>(it: impl Iterator<Item=T>) -> impl Iterator<Item=T> {
+    let mut tmp = Vec::new();
+    tmp.extend(it);
+    tmp.sort_unstable();
+    tmp.into_iter()
+}
+
+/// sort an [`Iterator`]<T> by function
+///
+/// # Arguments
+/// * `f`: (&T -> &T) -> [`Ordering`]
+/// *`it`: [`Iterator`] T
+pub fn sorted_by<T>(f: impl Fn(&T,&T) -> Ordering, it: impl Iterator<Item=T>) -> impl Iterator<Item=T> {
+    let mut tmp = Vec::new();
+    tmp.extend(it);
+    tmp.sort_unstable_by(f);
+    tmp.into_iter()
+}
+
+/// [`Zip`] two iterator into one iterator which return same index of item on two iterators
+///
+/// # Arguments
+/// * `it1`: [`Iterator`] T
+/// * `it2`: [`Iterator`] T
+pub fn zip<T,U>(it1: impl Iterator<Item=T>, it2: impl Iterator<Item=U>) -> Zip<impl Iterator<Item=T>, impl Iterator<Item=U>> {
+    let mut ret1 = Vec::new();
+    ret1.extend(it1);
+    let mut ret2 = Vec::new();
+    ret2.extend(it2);
+    ret1.into_iter().zip(ret2.into_iter())
+}
+
+/// [`Zip`] two iterator into one iterator by mapping with a function
+///
+/// # Arguments
+/// * `f`: Fn (T,U) -> V
+/// * `it1`: [`Iterator`] T
+/// * `it2`: [`Iterator`] U
+pub fn zip_with<T,U,V>(f: impl Fn((T,U)) -> V, it1: impl Iterator<Item=T>, it2: impl Iterator<Item=U>) -> impl Iterator<Item=V> {
+    zip(it1,it2).map(f)
 }

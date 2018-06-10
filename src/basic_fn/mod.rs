@@ -8,7 +8,6 @@
 //! Module basic_fn provide basic short-hand function for data operations.
 //! This include function and macros. For details please refer [Rust Docs](https://docs.rs/)
 
-#[macro_use]
 pub mod fun;
 #[macro_use]
 pub mod mac;

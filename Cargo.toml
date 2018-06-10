@@ -1,7 +1,7 @@
 [package]
 name = "kaguya_rs"
 description = "Functional Programming tools and ADTs"
-version = "0.1.4"
+version = "0.1.5"
 authors = ["FGO <fgoinai@gmail.com>"]
 
 homepage = "https://github.com/fgoinai/KaguyaRs"

@@ -6,7 +6,7 @@
 5. persistence data structure
 6. refactor whole lib by embedding persistence data structure to improve performance
 
-### functions
+#### functions
 - [x] `map` - 0.1.1, with curry
 - [x] `foldl` - 0.1.1, with curry
 - [x] `foldr` - 0.1.1, with curry
@@ -36,7 +36,7 @@
 - [ ] `ends_with`
 - [ ] `equals`
 - [x] `filter` - 0.1.1, with curry
-- [ ] `find<T>`
+- [x] `find<T>` - 0.1.5, with macro
 - [ ] `find_index`
 - [ ] `find_last`
 - [ ] `find_last_index`
@@ -97,9 +97,8 @@
 - [ ] `sequence`
 - [ ] `set`
 - [ ] `slice`
-- [ ] `sort`
-- [ ] `sort_by`
-- [ ] `sort_with`
+- [x] ~~sort~~ -> `sorted` - 0.1.5
+- [x] ~~sort_by~~ -> `sorted_by` - 0.1.5
 - [ ] `split`
 - [ ] `split_at`
 - [ ] `split_every`
@@ -136,8 +135,8 @@
 - [ ] `view`
 - [ ] `when`
 - [ ] `without`
-- [ ] `zip`
-- [ ] `zip_with`
+- [x] `zip` - 0.1.5
+- [x] `zip_with` - 0.1.5
 - [x] `concat` - 0.1.5
 - [x] `id` - 0.1.5
 - [x] `abs` - 0.1.5
@@ -165,3 +164,9 @@
 - [ ] `to_string`
 #### Other
 - [x] `ls!` - 0.1.2: list comprehension
+#### On hold
+- [] ~~sort_with~~ -> `sorted_with` - may implement by using unsafe...?
+
+### Some other todo list
+- as the default sorting algorithm of Rust std is quicksort, all sorting functions implementation may be require to change after persistance data structure is implemented
+- Planning: RPDS will be used for persistance data structure
