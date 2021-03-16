@@ -1,7 +1,7 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![crates.io](https://img.shields.io/crates/v/kaguya_rs.svg)](https://crates.io/crates/kaguya_rs)
+[![crates.io](https://img.shields.io/crates/v/pa.svg)](https://crates.io/crates/pa)
 [![Build Status](https://travis-ci.org/fgoinai/KaguyaRs.svg?branch=master)](https://travis-ci.org/fgoinai/KaguyaRs)
-[![docs](https://docs.rs/kaguya_rs/badge.svg)](https://docs.rs/kaguya_rs)
+[![docs](https://docs.rs/pa/badge.svg)](https://docs.rs/pa)
 
 # Category
 1. Introduction
@@ -37,11 +37,11 @@ Key concerns of this library:
 Add dependency to your Cargo.toml
 ```toml
 [dependencies]
-kaguya_rs = "*"
+pa = "*"
 ```
 
 ### Usage
-Please refer tests and [Docs](https://docs.rs/kaguya_rs)
+Please refer tests and [Docs](https://docs.rs/pa)
 
 ### Requirement
 - toolchain: nightly

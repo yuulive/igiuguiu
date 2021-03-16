@@ -7,7 +7,7 @@
 #![feature(trace_macros)]
 
 #[macro_use]
-extern crate kaguya_rs;
+extern crate pa;
 
 #[test]
 /// macro compose!
@@ -76,7 +76,7 @@ fn pipe_type_projection() {
 #[test]
 // fn map and curry map
 fn map() {
-    use kaguya_rs::basic_fn::fun::map;
+    use pa::basic_fn::fun::map;
     let v = vec![1,2,3];
     let result: Vec<i32> = map(|x| x+1, v.iter()).collect();
     assert_eq!(result, vec![2,3,4]);
@@ -89,7 +89,7 @@ fn map() {
 #[test]
 // fn filter and curry filter
 fn filter() {
-    use kaguya_rs::basic_fn::fun::filter;
+    use pa::basic_fn::fun::filter;
     let v = vec![1,2,3];
     let odd = filter(|&x| x & 1 == 1, v.iter()).map(|&x| x).collect::<Vec<i32>>();
     assert_eq!(odd, vec![1,3]);
@@ -102,7 +102,7 @@ fn filter() {
 #[test]
 // fn filter_not and curry filter_not
 fn filter_not() {
-    use kaguya_rs::basic_fn::fun::filter_not;
+    use pa::basic_fn::fun::filter_not;
     let v = vec![1,2,3];
     let even = filter_not(|&x| x & 1 == 1, v.iter()).map(|&x| x).collect::<Vec<i32>>();
     assert_eq!(even, vec![2]);
@@ -115,7 +115,7 @@ fn filter_not() {
 #[test]
 // fn foldl and curry foldl
 fn foldl() {
-    use kaguya_rs::basic_fn::fun::foldl;
+    use pa::basic_fn::fun::foldl;
     let v = vec![1,2,3];
     let result = foldl(4, |x,y| x*y, v.iter());
     assert_eq!(result, 24);
@@ -136,7 +136,7 @@ fn foldl() {
 #[test]
 // fn foldr and curry foldr
 fn foldr() {
-    use kaguya_rs::basic_fn::fun::foldr;
+    use pa::basic_fn::fun::foldr;
     let v = vec!["Houraisan","Kaguya"];
     let result = foldr("".to_string(), |x,y| x + "<|>" + y, v.iter());
     assert_eq!(result, "<|>Kaguya<|>Houraisan");
@@ -157,7 +157,7 @@ fn foldr() {
 #[test]
 // fn sum and macro sum
 fn sum() {
-    use kaguya_rs::basic_fn::fun::sum;
+    use pa::basic_fn::fun::sum;
     let result = 10;
     assert_eq!(sum(1..=4), result);
     assert_eq!(sum!(1;4), result);
@@ -180,7 +180,7 @@ fn ls() {
 #[test]
 // fn head
 fn head() {
-    use kaguya_rs::basic_fn::fun::head;
+    use pa::basic_fn::fun::head;
     let empty_vec = Vec::new() as Vec<i8>;
     let vec = vec![1,2,3];
 
@@ -191,7 +191,7 @@ fn head() {
 #[test]
 // fn tail
 fn tail() {
-    use kaguya_rs::basic_fn::fun::tail;
+    use pa::basic_fn::fun::tail;
     let empty_vec = Vec::new() as Vec<i8>;
     let vec = vec![1, 2, 3];
 
@@ -202,7 +202,7 @@ fn tail() {
 #[test]
 // fn last
 fn last() {
-    use kaguya_rs::basic_fn::fun::last;
+    use pa::basic_fn::fun::last;
     let empty_vec = Vec::new() as Vec<i8>;
     let vec = vec![1, 2, 3];
 
@@ -213,7 +213,7 @@ fn last() {
 #[test]
 // fn init
 fn init() {
-    use kaguya_rs::basic_fn::fun::init;
+    use pa::basic_fn::fun::init;
     let empty_vec = Vec::new() as Vec<i8>;
     let vec = vec![1,2,3];
 
@@ -224,7 +224,7 @@ fn init() {
 #[test]
 // fn and macro skip
 fn skip() {
-    use kaguya_rs::basic_fn::fun::skip;
+    use pa::basic_fn::fun::skip;
     let empty_vec = Vec::new() as Vec<i8>;
     let vec = vec![1,2,3];
 
@@ -239,7 +239,7 @@ fn skip() {
 #[test]
 // fn and macro take
 fn take() {
-    use kaguya_rs::basic_fn::fun::take;
+    use pa::basic_fn::fun::take;
     let empty_rec = Vec::new() as Vec<i8>;
     let vec = vec![1,2,3];
 
@@ -254,7 +254,7 @@ fn take() {
 #[test]
 // fn and macro product
 fn product() {
-    use kaguya_rs::basic_fn::fun::product;
+    use pa::basic_fn::fun::product;
     assert_eq!(product(1..=5), 120);
 
     assert_eq!(product!(1;5), 120);
@@ -264,7 +264,7 @@ fn product() {
 #[test]
 // fn length
 fn length() {
-    use kaguya_rs::basic_fn::fun::length;
+    use pa::basic_fn::fun::length;
     assert_eq!(length(vec![1,2,3,4,5].iter()), 5);
     assert_eq!(length(0..0), 0);
 }
@@ -272,14 +272,14 @@ fn length() {
 #[test]
 // fn reverse
 fn reverse() {
-    use kaguya_rs::basic_fn::fun::reverse;
+    use pa::basic_fn::fun::reverse;
     assert_eq!(reverse(1..=5), vec![5,4,3,2,1]);
 }
 
 #[test]
 // fn and macro concat
 fn concat() {
-    use kaguya_rs::basic_fn::fun::concat;
+    use pa::basic_fn::fun::concat;
     assert_eq!(concat(0..1,1..2), vec![0,1]);
     assert_eq!(
         concat!(0..1;1..2;2..3;3..=4;vec![5,6].iter()),
@@ -290,7 +290,7 @@ fn concat() {
 #[test]
 // fun id
 fn id() {
-    use kaguya_rs::basic_fn::fun::id;
+    use pa::basic_fn::fun::id;
     let vec = vec![1,2,3];
     assert_eq!(id(vec.clone()), vec);
 }
@@ -318,7 +318,7 @@ fn snd() {
 #[test]
 // fn neg
 fn neg() {
-    use kaguya_rs::basic_fn::fun::neg;
+    use pa::basic_fn::fun::neg;
     assert_eq!(neg(1), -1);
     assert_eq!(neg(-1), 1);
 }
@@ -350,7 +350,7 @@ fn signum() {
 #[test]
 // fn and macro rem
 fn rem() {
-    use kaguya_rs::basic_fn::fun::rem;
+    use pa::basic_fn::fun::rem;
     assert_eq!(rem(3, 2), 1);
     assert_eq!(rem!(3, 2), 1);
     let f = rem!(3_i32);
@@ -385,7 +385,7 @@ fn always() {
 #[test]
 // fn and macro add/sub/mul/div
 fn add_sub_mul_div() {
-    use kaguya_rs::basic_fn::fun::{add, sub, mul, div};
+    use pa::basic_fn::fun::{add, sub, mul, div};
     // add
     assert_eq!(add(1,2), 1 + 2);
     assert_eq!(add!(1, 2), 1+2);
@@ -411,7 +411,7 @@ fn add_sub_mul_div() {
 // fn and macro find
 fn find() {
     use std::collections::HashMap;
-    use kaguya_rs::basic_fn::fun::find;
+    use pa::basic_fn::fun::find;
     let mut m = HashMap::new();
     m.insert('a', 1);
     m.insert('b', 2);
@@ -425,7 +425,7 @@ fn find() {
 #[test]
 // fn sorted
 fn sorted() {
-    use kaguya_rs::basic_fn::fun::sorted;
+    use pa::basic_fn::fun::sorted;
     let vec = vec![1,5,3,7,8,3,9,3,2];
     assert_eq!(sorted(vec.iter()).map(|x| *x).collect::<Vec<i32>>(), vec![1,2,3,3,3,5,7,8,9]);
 }
@@ -433,7 +433,7 @@ fn sorted() {
 #[test]
 // fn and macro sorted_by
 fn sorted_by() {
-    use kaguya_rs::basic_fn::fun::sorted_by;
+    use pa::basic_fn::fun::sorted_by;
     use std::cmp::Ordering;
     let vec = vec![1,5,3,4,2];
     assert_eq!(vec![5,4,3,2,1], sorted_by(|x,y| y.cmp(x), vec.iter()).map(|x| *x).collect::<Vec<i32>>());
@@ -461,7 +461,7 @@ fn sorted_by() {
 #[test]
 // fn and macro zip
 fn zip() {
-    use kaguya_rs::basic_fn::fun::zip;
+    use pa::basic_fn::fun::zip;
     let ls1 = vec![1,2,3];
     let ls2 = vec!['a','b','c'];
     assert_eq!(zip(ls1.iter(), ls2.iter()).map(|(x,y)| (*x,*y)).collect::<Vec<_>>(), vec![(1,'a'), (2,'b'), (3,'c')]);
@@ -474,7 +474,7 @@ fn zip() {
 #[test]
 // fn and macro zip_with
 fn zip_with() {
-    use kaguya_rs::basic_fn::fun::zip_with;
+    use pa::basic_fn::fun::zip_with;
     let ls1 = vec![1,2,3];
     let ls2 = vec![1,0,1];
     assert_eq!(zip_with(move |(x,y)| x&y == 0, ls1.iter(), ls2.iter()).collect::<Vec<_>>(), vec![false, true, false]);

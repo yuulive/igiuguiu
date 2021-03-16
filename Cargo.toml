@@ -1,12 +1,12 @@
 [package]
-name = "kaguya_rs"
+name = "pa"
 description = "Functional Programming tools and ADTs"
 version = "0.1.5"
 authors = ["FGO <fgoinai@gmail.com>"]
 
-homepage = "https://github.com/fgoinai/KaguyaRs"
-repository = "https://github.com/fgoinai/KaguyaRs"
-documentation = "https://docs.rs/kaguya_rs"
+homepage = "https://github.com/yuulive/pa"
+repository = "https://github.com/yuulive/pa"
+documentation = "https://docs.rs/pa"
 readme = "README.md"
 
 keywords = [
